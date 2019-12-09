@@ -13,14 +13,32 @@
 </head>
 <body>
   <script>
-    let html = document.querySelector('html')
-    console.log('html', html)
-    console.log('window', document.documentElement.scrollTop)
-    window.addEventListener('scroll', () => {
-      if (html.scrollTop > (300 + 'px')) {
-        console.log('xxx')
+    // let html = document.querySelector('html')
+    // console.log('html', html)
+    // console.log('window', document.documentElement.scrollTop)
+    // window.addEventListener('scroll', () => {
+    //   if (html.scrollTop > (300 + 'px')) {
+    //     console.log('xxx')
+    //   }
+    // })
+    let obj = {name: 'Tom', age: 10}
+    let str = '523561HEhello'
+    let arr = Object.keys(obj)
+    let b = 'age'
+    // let arr = Object.entries(obj)
+    console.log('arr', arr)
+    console.log(arr.includes(b))
+    // console.log('str-includes', str.includes('236'))
+    function numOpt (params) {
+      let num = parseInt(params, 10)
+      if (num > 10000) {
+        console.log(num.toString()[0] + 'n+')
+        return num.toString()[0] + 'w+'
       }
-    })
+      return params
+    }
+    let a = numOpt(10001)
+    console.log(a)
   </script>
 </body>
 </html>
