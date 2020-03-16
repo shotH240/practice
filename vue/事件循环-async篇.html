@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    /**
+     *   1. async隐式返回promise作为结果的函数
+     *   2. await后面的函数执行完毕时,await会产生一个微任务，即await语句后面的内容都将被定义为promise.then
+     *   3. await的语句执行完后将会跳出async，先执行该宏任务的其他微任务
+     *   4. 一个async函数，只要遇到await，将会立即执行await，并将await语句后面的语句置为微任务(哪怕后面跟了一个await，也一样置为微任务)
+     *
+     */
+     // 微任务1顺序： 1. async2 end      2. promise.then(第一个then)
+     // 微任务2顺序： 1. async1 end      2. promise.then(第二个then)
+    console.log('script start') // 1
+    async function async1() {
+      // await async2函数 优先执行 后面那句console.log将被定义为微任务，然后跳出async1函数，寻找当前宏任务的下一个微任务来执行
+      await async2 () 
+      // 微任务2 的全部执行完后执行这里
+      console.log('async1 end')  // 7
+    }
+
+    async function async2 () {
+      // await 执行完后遇到了一个新的微任务  async2 end将被置于 列队 微任务1
+      await console.log('async2 - await') // 2
+      console.log('async2 end2') // 5
+    }
+
+    async1()
+
+    setTimeout(function () {  // 9  宏任务抛出，跑完之前的宏任务以及其子下的所有微任务执行
+      console.log('setTimeout')
+    }, 0)
+
+    new Promise (resolve => {
+      console.log('promise') // 3
+      resolve()
+    }).then(() => {
+      // awync2的微任务 async2 end执行完后，来到这里，往下走又遇到了.then，将下面的.then置入微任务2
+      console.log('then 1') // 6
+    }).then(() => {
+      // 这里将会产生一个微任务2
+      console.log('then 2') // 8
+    })
+
+    console.log('script end') // 4
+  </script>
+</body>
+</html>

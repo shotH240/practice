@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+</head>
+<body>
+  <div class="">one</div>
+  <div class="">two</div>
+  <div class="">three</div>
+  <div class="">four</div>
+  <script>
+    let obj = {
+      one: 1,
+      two: 1,
+      three: 1,
+      four: 1,
+    }
+    let d1 = document.getElementsByTagName('div')[0]
+    let d2 = document.getElementsByTagName('div')[1]
+    let d3 = document.getElementsByTagName('div')[2]
+    let d4 = document.getElementsByTagName('div')[3]
+    d1.onclick = function () {
+      obj.one += 1
+      console.log('obj', obj)
+    }
+    d2.onclick = function () {
+      obj.two += 1
+      console.log('obj', obj)
+    }
+    d3.onclick = function () {
+      obj.three += 1
+      console.log('obj', obj)
+    }
+    d4.onclick = function () {
+      obj.four += 1
+      console.log('obj', obj)
+    }
+
+
+
+    let arr = [
+      {name: 'Tom'},
+      {name: 'Jerry'},
+      {name: 'Boby'},
+      {name: 'Boer'}
+    ]
+    let nam = 'Tom'
+    let res = arr.find(val => {
+      return val.name === nam
+    })
+
+    console.log('res', res)
+  </script>
+</body>
+</html>

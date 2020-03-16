@@ -1,0 +1,29 @@
+1.CORS报错
+
+
+
+
+
+
+
+
+------------------------------------------------------------------------
+
+一、axios CORS报错
+
+报错信息：
+	Access to XMLHttpRequest at 'http://172.16.44.214:8080/api/v1/process_instances/0?type=0&pageIndex=1&pageSize=20' from origin 
+	'http://localhost:8080' has been blocked by CORS policy: Response to preflight request doesn't pass access control check: No 
+	'Access-Control-Allow-Origin' header is present on the requested resource.
+并发：
+	createError.js?2d83:16 Uncaught (in promise) Error: Network Error
+    at createError (createError.js?2d83:16)
+    at XMLHttpRequest.handleError (xhr.js?b50d:81)
+	
+err:  检查request的baseURL是否配置正确
+
+------------------------------------------------------------------------
+
+
+
+

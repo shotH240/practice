@@ -1,0 +1,20 @@
+    // pageSize = 当前的pageSize * 当前的pageIndex
+    let pageSize = self.$store.state.approval.pageSize * currentPageIndex
+    // 将pageIndex的值保存出来
+    let pageIndex = currentPageIndex
+    // 修改原pageIndex的值为1
+    self.$store.commit('UPDATEPAGEINDEX', 1)
+    let params = { type, pageIndex: self.$store.state.approval.pageIndex, pageSize, catalog, ...param }
+    let oTable = document.getElementsByClassName('self-table')[0]
+    // 获取当前的滚动高度
+    let scrollTop = oTable.scrollTop
+    // 发送请求
+    getProcessinstances(params).then(res => {
+      // 用之前保存的pageIndex替换当前pageIndex并+1 (+1是因为下次请求数据时，让他页码加一, 避免在下一次请求数据时页码还是当前页)
+      self.$store.commit('UPDATEPAGEINDEX', pageIndex + 1)
+      self.$emit('sendData', res.data.list)
+      // 将保存好的滚动高度直接赋值
+      oTable.scrollTop = scrollTop
+    })
+    // 将pageSize重新设置回默认值
+    self.$store.commit('UPDATEPAGESIZE', 10)
