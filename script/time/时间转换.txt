@@ -1,0 +1,25 @@
+1. 常规转换(全部转换为时间戳)
+  let date = new Date()
+  
+  (1) 今天  =>   let toDay = date.getTime()
+  
+  (2) 昨天  =>  
+		let dayMsec = (24 * 60 * 60 * 1000) // 一天的毫秒数
+		let yesterDay = date.getTime() - dayMsec // 获取昨天的时间戳
+  
+  (3) 明天  =>
+		let dayMsec = (24 * 60 * 60 * 1000)
+		let tomorrow = date.getTime() + dayMsec // 获取明天的时间戳
+  
+  (4) 最近一周(前七天) =>
+		let weekDayMsec = (7 * 24 * 3600 * 1000) // 一周的毫秒数
+		let lastWeek = date.getTime() - weekDayMsec // 获取一周前的时间戳
+  
+  (5) 获取最近几个月 =>
+		// num对应的是第几个月,如传1就是最近一个月，2就是两个月
+		export function getLastMonthTime (num) {
+		  let monthDate = new Date()
+		  monthDate.setMonth(monthDate.getMonth() - num)
+		  return monthDate.getTime()
+		}
+  
