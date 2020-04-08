@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 将数组的push方法通过call传递给arguments来使用
+    function fun1 () {
+      Array.prototype.push.call(arguments, 5)
+      let length = arguments.length
+      let sum = 0
+      console.log('arguments', arguments) // 1,2,4,5
+      for (let i = 0; i < length; i++) {
+        sum += arguments[i]
+      }
+      console.log('sum', sum)
+    }
+    // fun1(1, 2, 4)
+
+    // 通过toString方法来判断该对象是否为数组
+    function fun2 (obj) {
+      // console.log('result', Object.prototype.toString(obj))
+      let result = Object.prototype.toString.call(obj) === '[object Array]'
+      console.log('result', result)
+      return result
+    }
+    let obj = {}
+    let arr = []
+    let str = 'xxx'
+    // fun2(obj)  // false 
+    // fun2(arr)   // true
+    // fun2(str)  // false
+
+    Function.prototype.myCall = function myCall (that) {
+      that = that || window
+      that.ttfn = this
+      // let arr = [].slice.call(arguments, 1)
+      // let arr = [].slice.call(arguments, 1)
+      // Array.from(arguments)
+      let arr = Array.from(arguments).slice(1)
+      console.log('arr', arr)
+      let result = eval('that.ttfn(' + arr + ')')
+      delete that.ttfn
+      return result
+    }
+    let arr1 = [12, 15, 10, 7, 33, 2, 16, 11, 9]
+    // console.log('tt', Math.max.call(Math, ...arr1))
+    // console.log('ara', Math.max(...arr1))
+    console.log('tt2', Math.max.myCall(Math, ...arr1))
+
+  </script>
+</body>
+</html>

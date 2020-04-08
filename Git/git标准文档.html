@@ -167,6 +167,15 @@
 			
 			
 			--------------------------------------------------------------------------------------------------------------
+			
+			四、
+				git hub生成秘钥
+				git config --global user.name "shotH240"	// 绑定用户名
+				git config --global user.email "emile@emile.com"   // 绑定邮箱
+				ssh-keygen –t rsa –C "绑定邮箱@emile.com"
+				clip < ~/.ssh/id_rsa.pub
+				cat ~/.ssh/id_rsa.pub => 生成秘钥并拷贝,然后在自己的github中 设置 => ssh and GPG keys中设置秘钥,名称可随意。
+				
 				
          */
 		 
