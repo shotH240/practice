@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    Function.prototype.myCall = function (that) {
+      that = that || window
+      that.fn = this
+      let args = Array.from(arguments).slice(1)
+      let res = eval('that.fn(' + [...args] + ')')
+      delete that.fn
+      return res
+    }
+
+    Function.prototype.myApply = function (that) {
+      that = that || window
+      that.fn = this
+      let args = Array.from(arguments)[1]
+      if (args && !Array.isArray(args)) {
+        throw 'arguments[1] is not Array'
+        return
+      }
+      let res = eval('that.fn(' + [...args] + ')')
+      delete that.fn
+      return res
+    }
+
+    function permutate (str) {
+      let arr = str.split('')
+      function loop (arr, pre = []) {
+        if (arr.length === 1) return pre.concat(arr).join('')
+        let res = []
+        let length = arr.length
+        for (let i = 0; i < length; i++) {
+          let first = arr.pop()
+          res = res.concat(loop(arr, [...pre, first]))
+          arr.unshift(first)
+        }
+        return res
+      }
+      return Array.from(new Set(loop(arr)))
+    }
+
+    function search1 (arr, target) {
+      let to = arr.length - 1
+      let from = 0
+      let mid = 0
+      while (from <= to) {
+        mid = Math.floor((to + from) / 2)
+        if (arr[mid] > target) {
+          to = mid - 1
+        } else if (arr[mid] < target) {
+          from = mid + 1
+        } else {
+          return mid
+        }
+      }
+      return -1
+    }
+
+    function search2 (arr, target) {
+      return search(arr, target, arr.length - 1, 0)
+      function search(arr, target, to, from) {
+        if (from > to) return -1 
+        let mid = Math.floor((to + from) / 2)
+        if (arr[mid] > target) return search(arr, target, mid - 1, from)
+        if (arr[mid] < target) return search(arr, target, to, mid + 1)
+        if (arr[mid] === target) return mid
+      }
+    }
+
+    let numArr = [2, 5, 10, 7, 1, 9, 3, 8, 5]
+    let searchArr = [3, 6, 15, 26, 39, 41, 58, 62, 77, 80]
+    let str = 'abc'
+    console.log('myCall', Math.max.myCall(Math, numArr))
+    console.log('myApply', Math.min.myApply(Math, numArr))
+    console.log('permutate', permutate(str))
+    console.log('search1', search1(searchArr, 41))
+    console.log('search2', search2(searchArr, 26))
+  </script>
+</body>
+</html>

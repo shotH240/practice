@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let o = {_d: 4}
+    let test = { name: 'test'}
+    // let value = null
+    Object.defineProperty(o, 'a', {
+      value: 1
+    })
+    Object.defineProperty(o, 'b', {
+      value: 2
+    })
+    Object.defineProperty(o, 'c', {
+      value: 3
+    })
+    Object.defineProperty(test, 'tt', {
+      get: function () {
+        console.log('get', this.name)
+        console.log('this', this)
+        return this.name
+      },
+      set: function (newValue) {
+        console.log('set', newValue)
+        this.name = newValue
+      }
+    })
+    // o.d = 5
+    // console.log('test', test)
+    // console.log('o', o)
+    test.name = 'Tom'
+    console.log('D', test.tt)
+    console.log('o', test.name)
+    console.log('test-this', test)
+  </script>  
+</body>
+</html>

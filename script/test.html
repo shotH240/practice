@@ -4,10 +4,34 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
+  <style>
+    body,html {
+      height: 1139px;
+    }
+  </style>
 </head>
 <body>
   <script>
-    
+    function Person (val) {
+      this.val = val
+      let o = new Object()
+      o.val = val
+      // o.getVal = () => {
+      //   console.log('this', this)
+      //   return this
+      // }
+      o.getVal = function () {
+        console.log('this', this)
+        return this
+      }
+      console.log('t', this)
+      return o
+    }
+
+    let p1 = new Person('val')
+    // p1.getVal()
+    // p1.getVal()
+    console.log('p1', p1.getVal())
   </script>
 </body>
 </html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    function bubbleSort (arr) {
+      let length = arr.length
+      // 3     3 - 0     if => arr[1] > arr[1 - 1]     =>   12 > 6    temp = 12   arr[j - 1] = 6    通过temp交换位置
+      // j < length - i =>> 外面每走一次，  内层循环就少走一次
+      for (let i = 0; i < length; i++) {
+        for (let j = 1; j < length - i; j++) {
+          if (arr[j] > arr[j - 1]) {
+            let temp = arr[j]
+            console.log('temp', temp)
+            arr[j] = arr[j - 1]
+            arr[j - 1] = temp
+          }
+        }
+      }
+      return arr
+    }
+    let arr = [6, 12, 3]
+    console.log('bubbleSort', bubbleSort(arr))
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link rel="stylesheet" href="./style.css">
+  <style>
+  </style>
+</head>
+<body>
+  <div class="title">two-page</div>
+  <script>
+    function receiveData (event) {
+      console.log('event', event)
+      let data = JSON.parse(event.data)
+      console.log('data', data)
+      data.receive = 'world'
+      // 通过event.source.postMessage往回发送消息
+      event.source.postMessage(data, '*')
+      console.log('origin', event.origin)
+    }
+    window.addEventListener('message', receiveData, false)
+  </script>
+</body>
+</html>

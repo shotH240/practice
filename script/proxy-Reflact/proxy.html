@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    let obj = {
+      time: 10,
+      num: 20
+    }
+    let p1 = new Proxy(obj, {
+      get: function (target, propkey) {
+        if (propkey === 'num') {
+          return target[propkey]
+        }
+        return 35
+      }
+    })
+    let p2 = new Proxy({}, {
+      get: function (target, propKey) {
+        return 'null Object'
+      }
+    })
+    let o = Object.create(p1)
+    function createArray (...param) {
+      let handler = {
+        get (target, propkey, receiver) {
+          console.log('target', target)
+          console.log('propkey', propkey)
+          let index = Number(propKey)
+          console.log('index', index)
+          if (index < 0) {
+            propKey = String(target.length + index)
+            console.log('propkey', propKey)
+          }
+          return Reflect.get(target, propKey, receiver)
+        }
+      }
+      let target = []
+      target.push(...param)
+      return new Proxy(target, handler)
+    }
+    console.log('obj', obj.time)
+    console.log('p1-num', p1.num)
+    console.log('p1-time', p1.time)
+    console.log('p2', p2.one)
+    console.log('o', o.value)
+    let arr = createArray('a', 'b', 'c')
+    console.log('arr', arr[0])
+  </script>
+</body>
+</html>

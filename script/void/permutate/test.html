@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    Function.prototype.myCall = function (that) {
+      that = that || window
+      that.fn = this
+      let args = Array.from(arguments).slice(1)
+      let res = eval('that.fn(' + [...args] + ')')
+      delete that.fn
+      return res
+    }
+
+    Function.prototype.myApply = function (that) {
+      that = that || window
+      that.fn = this
+      let args = Array.from(arguments)[1]
+      if (args && !Array.isArray(args)) {
+        throw 'arguments[1] is not Array'
+        return
+      }
+      let res = eval('that.fn(' + [...args] + ')')
+      delete that.fn
+      return res
+    }
+
+    function permutate (str) {
+      let arr = str.split('')
+      function loop (arr, pre = []) {
+        if (arr.length === 1) return pre.concat(arr).join('')
+        let res = []
+        let length = arr.length
+        for (let i = 0; i < length; i++) {
+          let first = arr.pop()
+          res = res.concat(loop(arr, [...pre, first]))
+          arr.unshift(first)
+        }
+        return res
+      }
+      return Array.from(new Set(loop(arr)))
+    }
+
+    function appearMost (arr) {
+
+    }
+
+    let arr = [1, 5, 12, 3, 6, 30]
+    let num = 7
+    let str = 'abc'
+    let dayArr = ['f', 'a', 'd', 't', 'a', 'b', 'b', 'a', 'g', 'c']
+    // console.log('val', Math.max.myCall(Math, ...arr))
+    console.log('val', Math.max.myCall(Math, ...arr))
+    console.log('apply', Math.min.myApply(Math, arr))
+    console.log('premutate', permutate(str))
+    // console.log('appearMost', appearMost(dayArr))
+  </script>
+</body>
+</html>

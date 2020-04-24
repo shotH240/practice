@@ -1,0 +1,25 @@
+.title {
+  margin: 0 auot;
+  text-align: center;
+  width: 100%;
+}
+
+#frame {
+  display: none;
+  /* display: inline-block; */
+}
+
+.open {
+  width: 70px;
+  height: 30px;
+  /* border: 1px solid; */
+  border: none;
+  border-radius: 4px;
+  font: 400 13px/2 '微软雅黑';
+  color: aqua;
+  text-align: center;
+  background: black;
+  border-color: black;
+  margin: 10px auto;
+  cursor: pointer;
+}

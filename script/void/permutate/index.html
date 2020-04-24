@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <script>
+    // 全排列
+    function permutate (str) {
+      let arr = str.split('')
+      function loop (arr, pre = []) {
+        // console.log('arr', arr)
+        // console.log('pre', pre)
+        if (arr.length === 1) return [pre.concat(arr).join('')]
+        let result = []
+        /**
+         *  最外层的length为3，首次的顺序为a, b, c , 第一次循环进去的时候删除了c,并重新调用的一下loop，
+         *  外层第一次：   第一次重新调用的loop的arr长度值为2     得到   cba, cab
+         *  当删除到只剩一个元素时,重新返回pre  此时顺序为 c a b
+         *  第二次循环时, 用pop删除了b，并重新调用了loop
+         *  外层第二次：  重新调用loop的arr长度依然为2  得到 bac, bca
+         *  接着删除到只剩一个元素，重新返回pre 此时顺序为 b c a，并通过concat合并上一组得到的两个数量(cba, cab , bac, bca)
+         *  外层第三次：pop删除了a， 重新调用loop  得到 abc, acb
+         *  重新返回pre ，此时顺序为 abc   
+         *   =>>  三次循环全部循环完毕  合并前面四个(cba, cab , bac, bca, abc, acb)
+         */
+        let length = arr.length
+        for (let i = 0; i < length; i++) {
+          let first = arr.pop()
+          result = result.concat(loop(arr, [...pre, first]))
+          console.log('result', result)
+          // 每次的外层循环的第一次循环结束后就会将删除的字母加到最前面
+          arr.unshift(first)
+        }
+        // console.log('arr', arr)
+        // console.log('pre', pre)
+        // console.log('rt', result)
+        return result
+      }
+      return Array.from(new Set(loop(arr)))
+    }
+
+    let str = 'abc'
+    let res = permutate(str)
+    console.log('res', res)
+  </script>
+</body>
+</html>
