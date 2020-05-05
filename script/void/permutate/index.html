@@ -30,7 +30,7 @@
         for (let i = 0; i < length; i++) {
           let first = arr.pop()
           result = result.concat(loop(arr, [...pre, first]))
-          console.log('result', result)
+          // console.log('result', result)
           // 每次的外层循环的第一次循环结束后就会将删除的字母加到最前面
           arr.unshift(first)
         }
